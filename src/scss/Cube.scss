@@ -1,0 +1,108 @@
+$box-depth: 120px;
+$box-width: 250px;
+$box-height: 225px;
+$half-height: calc($box-height / 2);
+
+.booster-box {
+  padding-top: calc($half-height);
+  perspective: $box-width;
+  display: flex;
+  justify-content: center;
+
+  &__box {
+    width: $box-width;
+    height: $box-depth;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-100px) rotateX(-90deg);
+    transition: transform 1s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateZ(-100px) rotateX(90deg);
+    }
+  }
+
+  &__face {
+    position: absolute;
+    width: $box-width;
+    background-size: cover;
+    border-radius: 3px;
+    border: 1px solid #000;
+    transition: transform 1s;
+
+    &--top,
+    &--bottom {
+      height: $box-height;
+      background-color: #fff;
+    }
+
+    &--front,
+    &--back,
+    &--left,
+    &--right {
+      height: $box-depth;
+      background-color: #eee;
+    }
+
+    &--right,
+    &--left {
+      width: $box-height;
+    }
+
+    &--front {
+      transform: rotateY(0deg) translateZ($half-height);
+    }
+
+    &--right {
+      transform: rotateY(90deg) translateZ(138px);
+    }
+
+    &--back {
+      transform: rotateY(180deg) translateZ($half-height);
+    }
+
+    &--left {
+      transform: rotateY(-90deg) translateZ($half-height);
+    }
+
+    &--top {
+      transform: rotateX(90deg) translateZ($half-height);
+      z-index: 5;
+      background-color: #f8f8f8;
+    }
+
+    &--bottom {
+      transform: rotateX(-90deg) translateZ(7px);
+    }
+  }
+
+  &.show-front .booster-box__box {
+    transform: translateZ(-100px) rotateY(0deg);
+  }
+
+  &.show-right .booster-box__box {
+    transform: translateZ(-100px) rotateY(-90deg);
+  }
+
+  &.show-back .booster-box__box {
+    transform: translateZ(-100px) rotateY(-180deg);
+  }
+
+  &.show-left .booster-box__box {
+    transform: translateZ(-100px) rotateY(90deg);
+  }
+
+  &.show-top .booster-box__box {
+    transform: translateZ(-100px) rotateX(-90deg);
+  }
+
+  &.show-bottom .booster-box__box {
+    transform: translateZ(-100px) rotateX(90deg);
+  }
+
+  &.open .booster-box__face--top {
+    transform: rotateX(185deg) translateZ($half-height);
+    transform-origin: top;
+  }
+}
